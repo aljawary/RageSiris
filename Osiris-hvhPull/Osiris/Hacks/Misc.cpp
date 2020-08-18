@@ -118,6 +118,45 @@ void Misc::updateClanTag(bool tagChanged) noexcept
             memory->setClanTag(s, s);
         }
         case 2: {
+            if (int(memory->globalVars->currenttime * 2.1) != prevtime)
+            {
+                if (prevval != int(memory->globalVars->currenttime * 2.1) % 26)
+                {
+                    prevval = int(memory->globalVars->currenttime * 2.1) % 25;
+                    switch (int(memory->globalVars->currenttime * 2.1) % 25) {
+                    case 24: { memory->setClanTag("e                 ", "e                 ");; break; }
+                    case 23: { memory->setClanTag("se                ", "se                ");; break; }
+                    case 22: { memory->setClanTag("nse               ", "nse               ");; break; }
+                    case 21: { memory->setClanTag("ense              ", "ense              ");; break; }
+                    case 20: { memory->setClanTag("sense             ", "sense             ");; break; }
+                    case 19: { memory->setClanTag("esense            ", "esense            ");; break; }
+                    case 18: { memory->setClanTag("mesense           ", "mesense           ");; break; }
+                    case 17: { memory->setClanTag("amesense          ", "amesense          ");; break; }
+                    case 16: { memory->setClanTag("gamesense         ", "gamesense         ");; break; }
+                    case 15: { memory->setClanTag(" gamesense        ", " gamesense        ");; break; }
+                    case 14: { memory->setClanTag("  gamesense       ", "  gamesense       ");; break; }
+                    case 13: { memory->setClanTag("   gamesense      ", "   gamesense      ");; break; }
+                    case 12: { memory->setClanTag("    gamesense     ", "    gamesense     ");; break; }
+                    case 11: { memory->setClanTag("     gamesense    ", "     gamesense    ");; break; }
+                    case 10: { memory->setClanTag("      gamesense   ", "      gamesense   ");; break; }
+                    case 9: { memory->setClanTag("       gamesense  ", "       gamesense  ");; break; }
+                    case 8: { memory->setClanTag("        gamesense ", "        gamesense ");; break; }
+                    case 7: { memory->setClanTag("         gamesense", "         gamesense");; break; }
+                    case 6: { memory->setClanTag("          gamesens", "          gamesens");; break; }
+                    case 5: { memory->setClanTag("           gamesen", "           gamesen");; break; }
+                    case 4: { memory->setClanTag("            gamese", "            gamese");; break; }
+                    case 3: { memory->setClanTag("             games", "             games");; break; }
+                    case 2: { memory->setClanTag("              game", "              game");; break; }
+                    case 1: { memory->setClanTag("               gam", "               gam");; break; }
+                    case 0: { memory->setClanTag("                ga", "                ga");; break; }
+                    default:;
+                    }
+                }
+            }
+            prevtime = int(memory->globalVars->currenttime);
+            break;
+        }               
+        case 3: {
             if (int(memory->globalVars->currenttime * 3.1) != prevtime)
             {
                 if (prevval != int(memory->globalVars->currenttime * 3.1) % 31)
@@ -157,6 +196,7 @@ void Misc::updateClanTag(bool tagChanged) noexcept
             prevtime = int(memory->globalVars->currenttime);
             break;
         }
+
         default:
             break;
         }
@@ -166,7 +206,7 @@ void Misc::updateClanTag(bool tagChanged) noexcept
             return;
         lastTime = memory->globalVars->realtime;
 
-        if (config->misc.tagAnimType != 1 && config->misc.tagAnimType != 2) {
+        if (config->misc.tagAnimType != 1 && config->misc.tagAnimType != 3) {
             memory->setClanTag(clanTag.c_str(), clanTag.c_str());
         }
     }

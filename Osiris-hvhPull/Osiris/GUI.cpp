@@ -265,10 +265,11 @@ void GUI::renderAimbotWindow(bool contentOnly) noexcept
     ImGui::SliderFloat("Recoil control y", &config->aimbot[currentWeapon].recoilControlY, 0.0f, 1.0f, "%.2f");
     ImGui::SliderInt("Hit chance", &config->aimbot[currentWeapon].hitchance, 0, 100, "%d");
     ImGui::InputInt("Min damage", &config->aimbot[currentWeapon].minDamage);
+    ImGui::SliderInt("First shot delay", &config->aimbot[currentWeapon].firstShotDelay, 0, 250, "%d ms");
+    ImGui::SliderInt("Kill delay", &config->aimbot[currentWeapon].killDelay, 0, 500, "%d ms");
     config->aimbot[currentWeapon].minDamage = std::clamp(config->aimbot[currentWeapon].minDamage, 0, 250);
     ImGui::Checkbox("Killshot", &config->aimbot[currentWeapon].killshot);
     ImGui::Checkbox("Between shots", &config->aimbot[currentWeapon].betweenShots);
-    ImGui::InputInt("Shot Delay (ms)", &config->aimbot[currentWeapon].shotdelay);
     ImGui::Checkbox("Standalone RCS", &config->aimbot[currentWeapon].standaloneRCS);
     ImGui::InputInt("Ignore Shots", &config->aimbot[currentWeapon].shotsFired);
     config->aimbot[currentWeapon].shotsFired = std::clamp(config->aimbot[currentWeapon].shotsFired, 0, 10);
@@ -1391,7 +1392,7 @@ void GUI::renderMiscWindow(bool contentOnly) noexcept
     ImGui::SliderFloat("Aspect Ratio", &config->misc.aspectratio, 0.0f, 5.0f, "%.2f");
     ImGui::NextColumn();
     ImGui::Checkbox("Disable HUD blur", &config->misc.disablePanoramablur);
-    ImGui::Combo("", &config->misc.tagAnimType, "SortedAnimation\0ClockTag\0OsirisWare\0");
+    ImGui::Combo("", &config->misc.tagAnimType, "SortedAnimation\0ClockTag\0gamesense\0OsirisWare\0");
     ImGui::Checkbox("Custom clantag", &config->misc.customClanTag);
     ImGui::SameLine();
     ImGui::PushItemWidth(120.0f);

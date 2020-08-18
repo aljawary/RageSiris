@@ -62,6 +62,8 @@ public:
         float recoilControlY{ 0.0f };
         int hitchance{ 0 };
         int minDamage{ 1 };
+        int firstShotDelay{ 0 };
+        int killDelay{ 0 };
         int shotsFired{ 0 };
         int shotdelay{ 0 };
         bool killshot{ false };

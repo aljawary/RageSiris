@@ -6,6 +6,7 @@
 #include "Hacks/SkinChanger.h"
 #include "Interfaces.h"
 #include "Hacks/Visuals.h"
+#include "Hacks/Aimbot.h"
 
 EventListener::EventListener() noexcept
 {
@@ -39,6 +40,7 @@ void EventListener::fireGameEvent(GameEvent* event)
         Misc::purchaseList(event);
         break;
     case fnv::hash("player_death"):
+        Aimbot::handleKill(*event);
         SkinChanger::updateStatTrak(*event);
         break;
     }
