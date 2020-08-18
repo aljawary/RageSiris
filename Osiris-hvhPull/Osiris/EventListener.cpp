@@ -40,7 +40,6 @@ void EventListener::fireGameEvent(GameEvent* event)
         Misc::purchaseList(event);
         break;
     case fnv::hash("player_death"):
-        Aimbot::handleKill(*event);
         SkinChanger::updateStatTrak(*event);
         break;
     }

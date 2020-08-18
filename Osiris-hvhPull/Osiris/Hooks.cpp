@@ -482,6 +482,7 @@ static bool __stdcall fireEventClientSide(GameEvent* event) noexcept
         case fnv::hash("player_death"):
             Misc::killMessage(*event);
             Misc::killSound(*event);
+            Aimbot::handleKill(*event);
             SkinChanger::overrideHudIcon(*event);
             break;
         case fnv::hash("player_hurt"):
