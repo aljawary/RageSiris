@@ -116,47 +116,9 @@ void Misc::updateClanTag(bool tagChanged) noexcept
             s[0] = '\0';
             sprintf_s(s, "[%02d:%02d:%02d]", localTime->tm_hour, localTime->tm_min, localTime->tm_sec);
             memory->setClanTag(s, s);
+            break;
         }
         case 2: {
-            if (int(memory->globalVars->currenttime * 4) != prevtime)
-            {
-                if (prevval != int(memory->globalVars->currenttime * 4) % 16)
-                {
-                    prevval = int(memory->globalVars->currenttime * 4) % 16;
-                    switch (int(memory->globalVars->currenttime * 4) % 16) {
-                    case 24: { memory->setClanTag("e                 ", "e                 ");; break; }
-                    case 23: { memory->setClanTag("se                ", "se                ");; break; }
-                    case 22: { memory->setClanTag("nse               ", "nse               ");; break; }
-                    case 21: { memory->setClanTag("ense              ", "ense              ");; break; }
-                    case 20: { memory->setClanTag("sense             ", "sense             ");; break; }
-                    case 19: { memory->setClanTag("esense            ", "esense            ");; break; }
-                    case 18: { memory->setClanTag("mesense           ", "mesense           ");; break; }
-                    case 17: { memory->setClanTag("amesense          ", "amesense          ");; break; }
-                    case 16: { memory->setClanTag("gamesense         ", "gamesense         ");; break; }
-                    case 15: { memory->setClanTag(" gamesense        ", " gamesense        ");; break; }
-                    case 14: { memory->setClanTag("  gamesense       ", "  gamesense       ");; break; }
-                    case 13: { memory->setClanTag("   gamesense      ", "   gamesense      ");; break; }
-                    case 12: { memory->setClanTag("    gamesense     ", "    gamesense     ");; break; }
-                    case 11: { memory->setClanTag("     gamesense    ", "     gamesense    ");; break; }
-                    case 10: { memory->setClanTag("      gamesense   ", "      gamesense   ");; break; }
-                    case 9: { memory->setClanTag("       gamesense  ", "       gamesense  ");; break; }
-                    case 8: { memory->setClanTag("        gamesense ", "        gamesense ");; break; }
-                    case 7: { memory->setClanTag("         gamesense", "         gamesense");; break; }
-                    case 6: { memory->setClanTag("          gamesens", "          gamesens");; break; }
-                    case 5: { memory->setClanTag("           gamesen", "           gamesen");; break; }
-                    case 4: { memory->setClanTag("            gamese", "            gamese");; break; }
-                    case 3: { memory->setClanTag("             games", "             games");; break; }
-                    case 2: { memory->setClanTag("              game", "              game");; break; }
-                    case 1: { memory->setClanTag("               gam", "               gam");; break; }
-                    case 0: { memory->setClanTag("                ga", "                ga");; break; }
-                    default:;
-                    }
-                }
-            }
-            prevtime = int(memory->globalVars->currenttime);
-            break;
-        }               
-        case 3: {
             if (int(memory->globalVars->currenttime * 3.1) != prevtime)
             {
                 if (prevval != int(memory->globalVars->currenttime * 3.1) % 31)
@@ -196,7 +158,47 @@ void Misc::updateClanTag(bool tagChanged) noexcept
             prevtime = int(memory->globalVars->currenttime);
             break;
         }
-
+        case 3: {
+            if (int(memory->globalVars->currenttime * 2.4) != prevtime)
+            {
+                if (prevval != int(memory->globalVars->currenttime * 2.4) % 27)
+                {
+                    prevval = int(memory->globalVars->currenttime * 2.4) % 27;
+                    switch (int(memory->globalVars->currenttime * 2.4) % 27) {
+                    case 0: memory->setClanTag("                  ", "                  "); break;
+                    case 1: memory->setClanTag("                 g", "                 g"); break;
+                    case 2: memory->setClanTag("                ga", "                ga"); break;
+                    case 3: memory->setClanTag("               gam", "               gam"); break;
+                    case 4: memory->setClanTag("              game", "              game"); break;
+                    case 5: memory->setClanTag("             games", "             games"); break;
+                    case 6: memory->setClanTag("            gamese", "            gamese"); break;
+                    case 7: memory->setClanTag("           gamesen", "           gamesen"); break;
+                    case 8: memory->setClanTag("          gamesens", "          gamesens"); break;
+                    case 9: memory->setClanTag("         gamesense", "         gamesense"); break;
+                    case 10:memory->setClanTag("        gamesense ", "        gamesense "); break;
+                    case 11:memory->setClanTag("       gamesense  ", "       gamesense  "); break;
+                    case 12:memory->setClanTag("      gamesense   ", "      gamesense   "); break;
+                    case 13:memory->setClanTag("     gamesense    ", "     gamesense    "); break;
+                    case 14:memory->setClanTag("    gamesense     ", "    gamesense     "); break;
+                    case 15:memory->setClanTag("   gamesense      ", "   gamesense      "); break;
+                    case 16:memory->setClanTag("  gamesense       ", "  gamesense       "); break;
+                    case 17:memory->setClanTag(" gamesense        ", " gamesense        "); break;
+                    case 18:memory->setClanTag("gamesense         ", "gamesense         "); break;
+                    case 19:memory->setClanTag("amesense          ", "amesense          "); break;
+                    case 20:memory->setClanTag("mesense           ", "mesense           "); break;
+                    case 22:memory->setClanTag("esense            ", "esense            "); break;
+                    case 23:memory->setClanTag("sense             ", "sense             "); break;
+                    case 24:memory->setClanTag("sens              ", "sens              "); break;
+                    case 25:memory->setClanTag("sen               ", "sen               "); break;
+                    case 26:memory->setClanTag("se                ", "se                "); break;
+                    case 27:memory->setClanTag("s                 ", "s                 "); break;
+                    default:;
+                    }
+                }
+            }
+            prevtime = int(memory->globalVars->currenttime);
+            break;
+        }       
         default:
             break;
         }

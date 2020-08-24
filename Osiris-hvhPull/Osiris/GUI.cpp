@@ -1392,7 +1392,7 @@ void GUI::renderMiscWindow(bool contentOnly) noexcept
     ImGui::SliderFloat("Aspect Ratio", &config->misc.aspectratio, 0.0f, 5.0f, "%.2f");
     ImGui::NextColumn();
     ImGui::Checkbox("Disable HUD blur", &config->misc.disablePanoramablur);
-    ImGui::Combo("", &config->misc.tagAnimType, "SortedAnimation\0ClockTag\0gamesense\0OsirisWare\0");
+    ImGui::Combo("", &config->misc.tagAnimType, "SortedAnimation\0ClockTag\0OsirisWare\0gamesense\0");
     ImGui::Checkbox("Custom clantag", &config->misc.customClanTag);
     ImGui::SameLine();
     ImGui::PushItemWidth(120.0f);
