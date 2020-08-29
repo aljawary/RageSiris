@@ -28,6 +28,8 @@ namespace Visuals
     bool removeWeapons(const char* modelName) noexcept;
     void skybox() noexcept;
     void indicators() noexcept;
+	void showVelocity() noexcept;
+	void NightMode() noexcept;
     void bulletBeams(GameEvent* event = nullptr) noexcept;
     void hitMarkerSetDamageIndicator(GameEvent* event) noexcept;
     void hitMarkerDamageIndicator() noexcept;

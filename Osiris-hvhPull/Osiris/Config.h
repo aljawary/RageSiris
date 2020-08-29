@@ -204,6 +204,7 @@ public:
         bool noBloom{ false };
         bool noScopeOverlay{ false };
         bool noGrass{ false };
+        bool nightMode{ false };
         bool noShadows{ false };
         bool wireframeSmoke{ false };
         bool zoom{ false };
@@ -220,6 +221,12 @@ public:
         std::string customSkybox;
         ColorToggle world;
         ColorToggle sky;
+        ColorToggle showvelocity;
+        bool showvelocityM{ false };
+        int showvelocityPosX{ 0 };
+        int showvelocityPosY{ 0 };
+        int showvelocityResX;
+        int showvelocityResY;
         bool deagleSpinner{ false };
         int screenEffect{ 0 };
         int hitEffect{ 0 };

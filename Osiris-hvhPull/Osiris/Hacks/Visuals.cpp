@@ -550,6 +550,76 @@ void Visuals::indicators() noexcept
     }
 }
 
+void Visuals::showVelocity() noexcept
+{
+    if (!config->visuals.showvelocity.enabled || !localPlayer || !localPlayer->isAlive())
+        return;
+
+    float velocity = localPlayer->velocity().length2D();
+    std::wstring velocitywstr{ L"(" + std::to_wstring(static_cast<int>(velocity)) + L")" };
+
+    interfaces->surface->setTextFont(Surface::font);
+    if (config->visuals.showvelocity.rainbow)
+        interfaces->surface->setTextColor(rainbowColor(memory->globalVars->realtime, config->visuals.showvelocity.rainbowSpeed));
+    else
+        interfaces->surface->setTextColor((config->visuals.showvelocity.color));
+
+    const auto [width, height] = interfaces->surface->getScreenSize();
+    config->visuals.showvelocityResX = width;
+    config->visuals.showvelocityResY = height;
+    if (config->visuals.showvelocityM)
+        interfaces->surface->setTextPosition(config->visuals.showvelocityPosX, config->visuals.showvelocityPosY);
+    else
+        interfaces->surface->setTextPosition(width / 2 - 6, height - 200);
+    interfaces->surface->printText(velocitywstr);
+}
+
+
+void Visuals::NightMode()noexcept
+{
+    static std::string old_Skyname = "";
+    static bool OldNightmode;
+    static int OldSky;
+    if (!interfaces->engine->isInGame() || !interfaces->engine->isConnected() || !localPlayer || !localPlayer->isAlive()) {
+        old_Skyname = "";
+        OldNightmode = false;
+        OldSky = 0;
+        return;
+    }
+
+    static ConVar* r_DrawSpecificStaticProp;
+
+    if (OldNightmode != config->visuals.nightMode)
+    {
+        r_DrawSpecificStaticProp = interfaces->cvar->findVar("r_DrawSpecificStaticProp");
+        r_DrawSpecificStaticProp->setValue(0);
+
+        for (auto i = interfaces->materialSystem->firstMaterial(); i != interfaces->materialSystem->invalidMaterial(); i = interfaces->materialSystem->nextMaterial(i))
+        {
+            Material* pMaterial = interfaces->materialSystem->getMaterial(i);
+            if (!pMaterial)
+                continue;
+            if (strstr(pMaterial->getTextureGroupName(), "World") || strstr(pMaterial->getTextureGroupName(), "StaticProp")) {
+                if (config->visuals.nightMode) {
+                    memory->loadSky("sky_csgo_night02");
+
+                    if (strstr(pMaterial->getTextureGroupName(), "StaticProp"))
+                        pMaterial->colorModulate(0.11f, 0.11f, 0.11f);
+                    else
+                        pMaterial->colorModulate(0.05f, 0.05f, 0.05f);
+                }
+                else {
+                    memory->loadSky("sky_cs15_daylight04_hdr");
+                    pMaterial->colorModulate(1.0f, 1.0f, 1.0f);
+                }
+            }
+        }
+        OldNightmode = config->visuals.nightMode;
+    }
+
+}
+
+
 void Visuals::bulletBeams(GameEvent* event) noexcept
 {
     if (!config->visuals.bulletTracers.enabled || !interfaces->engine->isInGame() || !interfaces->engine->isConnected() || memory->renderBeams == nullptr)

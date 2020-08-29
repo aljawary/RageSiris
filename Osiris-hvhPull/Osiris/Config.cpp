@@ -702,6 +702,7 @@ void Config::load(size_t id) noexcept
         if (visualsJson.isMember("Zoom")) visuals.zoom = visualsJson["Zoom"].asBool();
         if (visualsJson.isMember("Zoom key")) visuals.zoomKey = visualsJson["Zoom key"].asInt();
         if (visualsJson.isMember("thirdperson")) visuals.thirdperson = visualsJson["thirdperson"].asBool();
+        if (visualsJson.isMember("Night Mode")) visuals.nightMode = visualsJson["Night Mode"].asBool();
         if (visualsJson.isMember("thirdpersonKey")) visuals.thirdpersonKey = visualsJson["thirdpersonKey"].asInt();
         if (visualsJson.isMember("thirdpersonDistance")) visuals.thirdpersonDistance = visualsJson["thirdpersonDistance"].asInt();
         if (visualsJson.isMember("viewmodelFov")) visuals.viewmodelFov = visualsJson["viewmodelFov"].asInt();
@@ -773,6 +774,28 @@ void Config::load(size_t id) noexcept
         if (visualsJson.isMember("Text X")) visuals.hitMarkerDamageIndicatorTextX = visualsJson["Text X"].asInt();
         if (visualsJson.isMember("Text Y")) visuals.hitMarkerDamageIndicatorTextY = visualsJson["Text Y"].asInt();
         if (visualsJson.isMember("Ratio")) visuals.hitMarkerDamageIndicatorRatio = visualsJson["Ratio"].asFloat();
+        //hitmarker indicator ends here
+
+        if (const auto& velocityConfig{ visualsJson["Show Velocity"] }; velocityConfig.isObject()) {
+            if (const auto& enabled{ velocityConfig["Enabled"] }; enabled.isBool())
+                visuals.showvelocity.enabled = enabled.asBool();
+
+            if (const auto& color{ velocityConfig["Color"] }; color.isArray()) {
+                visuals.showvelocity.color[0] = color[0].asFloat();
+                visuals.showvelocity.color[1] = color[1].asFloat();
+                visuals.showvelocity.color[2] = color[2].asFloat();
+            }
+            if (const auto& rainbow{ velocityConfig["Rainbow"] }; rainbow.isBool())
+                visuals.showvelocity.rainbow = rainbow.asBool();
+
+            if (const auto& rainbowSpeed{ velocityConfig["Rainbow speed"] }; rainbowSpeed.isDouble())
+                visuals.showvelocity.rainbowSpeed = rainbowSpeed.asFloat();
+        }
+        if (visualsJson.isMember("Custom Pos")) visuals.showvelocityM = visualsJson["Custom Pos"].asBool();
+        if (visualsJson.isMember("Res X")) visuals.showvelocityResX = visualsJson["Res X"].asInt();
+        if (visualsJson.isMember("Res Y")) visuals.showvelocityResY = visualsJson["Res Y"].asInt();
+        //show velocity ends here
+
         if (visualsJson.isMember("Playermodel T")) visuals.playerModelT = visualsJson["Playermodel T"].asInt();
         if (visualsJson.isMember("Playermodel CT")) visuals.playerModelCT = visualsJson["Playermodel CT"].asInt();
         if (visualsJson.isMember("Bullet Beams")) {
@@ -1638,6 +1661,7 @@ void Config::save(size_t id) const noexcept
         visualsJson["Zoom"] = visuals.zoom;
         visualsJson["Zoom key"] = visuals.zoomKey;
         visualsJson["thirdperson"] = visuals.thirdperson;
+        visualsJson["Night Mode"] = visuals.nightMode;
         visualsJson["thirdpersonKey"] = visuals.thirdpersonKey;
         visualsJson["thirdpersonDistance"] = visuals.thirdpersonDistance;
         visualsJson["viewmodelFov"] = visuals.viewmodelFov;
@@ -1654,7 +1678,7 @@ void Config::save(size_t id) const noexcept
         visualsJson["Fakelag Indicator"] = visuals.selectedIndicators[2];
         visualsJson["Fakeduck Indicator"] = visuals.selectedIndicators[3];
 
-        {
+        {   
             auto& worldJson = visualsJson["World"];
             worldJson["Enabled"] = visuals.world.enabled;
             worldJson["Color"][0] = visuals.world.color[0];
@@ -1691,13 +1715,13 @@ void Config::save(size_t id) const noexcept
         visualsJson["Hit marker"] = visuals.hitMarker;
         visualsJson["Hit marker time"] = visuals.hitMarkerTime;
         {
-            auto& hitMarkerDamageIndicatorJson = visualsJson["Hit marker Damage Indicator"];
-            hitMarkerDamageIndicatorJson["Enabled"] = visuals.hitMarkerDamageIndicator.enabled;
-            hitMarkerDamageIndicatorJson["Color"][0] = visuals.hitMarkerDamageIndicator.color[0];
-            hitMarkerDamageIndicatorJson["Color"][1] = visuals.hitMarkerDamageIndicator.color[1];
-            hitMarkerDamageIndicatorJson["Color"][2] = visuals.hitMarkerDamageIndicator.color[2];
-            hitMarkerDamageIndicatorJson["Rainbow"] = visuals.hitMarkerDamageIndicator.rainbow;
-            hitMarkerDamageIndicatorJson["Rainbow speed"] = visuals.hitMarkerDamageIndicator.rainbowSpeed;
+            auto& hitMarkerIndicator = visualsJson["Hit marker Damage Indicator"];
+            hitMarkerIndicator["Enabled"] = visuals.hitMarkerDamageIndicator.enabled;
+            hitMarkerIndicator["Color"][0] = visuals.hitMarkerDamageIndicator.color[0];
+            hitMarkerIndicator["Color"][1] = visuals.hitMarkerDamageIndicator.color[1];
+            hitMarkerIndicator["Color"][2] = visuals.hitMarkerDamageIndicator.color[2];
+            hitMarkerIndicator["Rainbow"] = visuals.hitMarkerDamageIndicator.rainbow;
+            hitMarkerIndicator["Rainbow speed"] = visuals.hitMarkerDamageIndicator.rainbowSpeed;
         }
         visualsJson["Customize Hitmarker"] = visuals.hitMarkerDamageIndicatorCustomize;
         visualsJson["Font"] = visuals.hitMarkerDamageIndicatorFont;
@@ -1706,6 +1730,20 @@ void Config::save(size_t id) const noexcept
         visualsJson["Text X"] = visuals.hitMarkerDamageIndicatorTextX;
         visualsJson["Text Y"] = visuals.hitMarkerDamageIndicatorTextY;
         visualsJson["Ratio"] = visuals.hitMarkerDamageIndicatorRatio;
+        //hitmarker ends here
+        {
+            auto& velocityConfig = visualsJson["Show Velocity"];
+            velocityConfig["Enabled"] = visuals.showvelocity.enabled;
+            velocityConfig["Color"][0] = visuals.showvelocity.color[0];
+            velocityConfig["Color"][1] = visuals.showvelocity.color[1];
+            velocityConfig["Color"][2] = visuals.showvelocity.color[2];
+            velocityConfig["Rainbow"] = visuals.showvelocity.rainbow;
+            velocityConfig["Rainbow speed"] = visuals.showvelocity.rainbowSpeed;
+        }
+        visualsJson["Custom Pos"] = visuals.showvelocityM;
+        visualsJson["Res X"] = visuals.showvelocityResX;
+        visualsJson["Res Y"] = visuals.showvelocityResY;
+        //velocity ends here
         visualsJson["Playermodel T"] = visuals.playerModelT;
         visualsJson["Playermodel CT"] = visuals.playerModelCT;
 

@@ -978,6 +978,7 @@ void GUI::renderVisualsWindow(bool contentOnly) noexcept
     ImGui::Checkbox("Inverse ragdoll gravity", &config->visuals.inverseRagdollGravity);
     ImGui::Checkbox("No fog", &config->visuals.noFog);
     ImGui::Checkbox("No 3d sky", &config->visuals.no3dSky);
+    ImGui::Checkbox("Night Mode", &config->visuals.nightMode);
     ImGui::Checkbox("No aim punch", &config->visuals.noAimPunch);
     ImGui::Checkbox("No view punch", &config->visuals.noViewPunch);
     ImGui::Checkbox("No hands", &config->visuals.noHands);
@@ -990,6 +991,19 @@ void GUI::renderVisualsWindow(bool contentOnly) noexcept
     ImGui::Checkbox("No grass", &config->visuals.noGrass);
     ImGui::Checkbox("No shadows", &config->visuals.noShadows);
     ImGui::Checkbox("Wireframe smoke", &config->visuals.wireframeSmoke);
+    ImGuiCustom::colorPicker("Show Velocity", config->visuals.showvelocity);
+    if (config->visuals.showvelocity.enabled) {
+        ImGui::SameLine();
+        ImGui::Checkbox("Custom Pos", &config->visuals.showvelocityM);
+        if (config->visuals.showvelocityM) {
+            ImGui::PushID(2);
+            ImGui::SliderInt("", &config->visuals.showvelocityPosX, 0, config->visuals.showvelocityResX, "X pos: %d");
+            ImGui::PopID();
+            ImGui::PushID(3);
+            ImGui::SliderInt("", &config->visuals.showvelocityPosY, 0, config->visuals.showvelocityResY, "Y pos: %d");
+            ImGui::PopID();
+        }
+    }
     ImGui::NextColumn();
     ImGui::Checkbox("Zoom", &config->visuals.zoom);
     ImGui::SameLine();

@@ -339,7 +339,7 @@ static void __stdcall paintTraverse(unsigned int panel, bool forceRepaint, bool 
         Visuals::indicators();
         Misc::drawBombDamage();
         Visuals::hitMarkerDamageIndicator();
-
+        Visuals::showVelocity();
     }
     hooks->panel.callOriginal<void, 41>(panel, forceRepaint, allowForce);
 }
@@ -368,6 +368,7 @@ static void __stdcall frameStageNotify(FrameStage stage) noexcept
         Misc::disablePanoramablur();
         Visuals::colorWorld();
         Misc::fakePrime();
+        Visuals::NightMode();
     }
   
     if (interfaces->engine->isInGame()) {
