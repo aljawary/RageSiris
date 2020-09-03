@@ -941,7 +941,7 @@ void Config::load(size_t id) noexcept
         if (miscJson.isMember("Reveal suspect")) misc.revealSuspect = miscJson["Reveal suspect"].asBool();
         if (miscJson.isMember("Spammer")) misc.chat_spammer = miscJson["Spammer"].asInt();
         if (miscJson.isMember("Spectator List")) misc.spectatorList = miscJson["Spectator List"].asBool();
-        if (miscJson.isMember("Watermark")) misc.watermark = miscJson["Water mark"].asBool();
+        if (miscJson.isMember("Watermark")) misc.watermark = miscJson["Watermark"].asBool();
 
 
         /*if (const auto& watermark{ miscJson["Watermark"] }; watermark.isObject()) {
