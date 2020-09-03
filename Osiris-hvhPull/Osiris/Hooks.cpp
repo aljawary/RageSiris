@@ -95,6 +95,7 @@ static HRESULT __stdcall present(IDirect3DDevice9* device, const RECT* src, cons
 
     Misc::purchaseList();
     Misc::spectatorList();
+    Misc::watermark();
 
     if (gui->open)
         gui->render();
@@ -333,7 +334,6 @@ static void __stdcall paintTraverse(unsigned int panel, bool forceRepaint, bool 
     if (interfaces->panel->getName(panel) == "MatSystemTopPanel") {
         Esp::render();
         Misc::drawBombTimer();
-        Misc::watermark();
         Visuals::hitMarker();
         Misc::drawAimbotFov();
         Visuals::indicators();

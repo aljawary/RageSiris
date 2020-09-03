@@ -1397,8 +1397,7 @@ void GUI::renderMiscWindow(bool contentOnly) noexcept
         ImGui::SameLine();
         ImGui::Checkbox("Lock and save Window Position", &config->misc.wposLockSelectedFlags[16]);
     }
-
-    ImGuiCustom::colorPicker("Watermark", config->misc.watermark);
+    ImGui::Checkbox("Watermark", &config->misc.watermark);
     ImGui::Checkbox("Fix animation LOD", &config->misc.fixAnimationLOD);
     ImGui::Checkbox("Fix bone matrix", &config->misc.fixBoneMatrix);
     ImGui::Checkbox("Fix movement", &config->misc.fixMovement);

@@ -941,9 +941,10 @@ void Config::load(size_t id) noexcept
         if (miscJson.isMember("Reveal suspect")) misc.revealSuspect = miscJson["Reveal suspect"].asBool();
         if (miscJson.isMember("Spammer")) misc.chat_spammer = miscJson["Spammer"].asInt();
         if (miscJson.isMember("Spectator List")) misc.spectatorList = miscJson["Spectator List"].asBool();
+        if (miscJson.isMember("Watermark")) misc.watermark = miscJson["Water mark"].asBool();
 
 
-        if (const auto& watermark{ miscJson["Watermark"] }; watermark.isObject()) {
+        /*if (const auto& watermark{ miscJson["Watermark"] }; watermark.isObject()) {
             if (const auto& enabled{ watermark["Enabled"] }; enabled.isBool())
                 misc.watermark.enabled = enabled.asBool();
 
@@ -957,7 +958,7 @@ void Config::load(size_t id) noexcept
 
             if (const auto& rainbowSpeed{ watermark["Rainbow speed"] }; rainbowSpeed.isDouble())
                 misc.watermark.rainbowSpeed = rainbowSpeed.asFloat();
-        }
+        }*/
 
         if (miscJson.isMember("Fix animation LOD")) misc.fixAnimationLOD = miscJson["Fix animation LOD"].asBool();
         if (miscJson.isMember("Fix bone matrix")) misc.fixBoneMatrix = miscJson["Fix bone matrix"].asBool();
@@ -1867,9 +1868,9 @@ void Config::save(size_t id) const noexcept
         miscJson["Reveal suspect"] = misc.revealSuspect;
         miscJson["Spammer"] = misc.chat_spammer;
         miscJson["Spectator List"] = misc.spectatorList;
+        miscJson["Watermark"] = misc.watermark;
 
-
-        {
+        /*{
             auto& watermarkJson = miscJson["Watermark"];
             watermarkJson["Enabled"] = misc.watermark.enabled;
             watermarkJson["Color"][0] = misc.watermark.color[0];
@@ -1877,7 +1878,7 @@ void Config::save(size_t id) const noexcept
             watermarkJson["Color"][2] = misc.watermark.color[2];
             watermarkJson["Rainbow"] = misc.watermark.rainbow;
             watermarkJson["Rainbow speed"] = misc.watermark.rainbowSpeed;
-        }
+        }*/
 
         miscJson["Fix animation LOD"] = misc.fixAnimationLOD;
         miscJson["Fix bone matrix"] = misc.fixBoneMatrix;

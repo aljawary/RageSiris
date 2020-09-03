@@ -332,7 +332,7 @@ public:
         bool revealMoney{ false };
         bool revealSuspect{ false };
         bool spectatorList{ false };
-        ColorToggle watermark;
+        bool watermark{ false }; 
         bool fixAnimationLOD{ false };      
         bool fixBoneMatrix{ false };
         bool fixMovement{ false };
